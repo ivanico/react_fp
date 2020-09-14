@@ -12,7 +12,7 @@ export class Input extends React.Component {
                 />
                 {this.props.name === "password" ?
                     <button onClick={this.props.togglePassword} className="eye-button" type="button">
-                        <i className={"fa" + (this.props.type === "password" ? "fa-eye-slash" : "fa-eye")}></i> 
+                        <i className={"fas " + (this.props.type === "password" ? "fas eye-slash" : "fa-eye" )}></i> 
                     </button> : null}
             </p>
         )
