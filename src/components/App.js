@@ -3,6 +3,7 @@ import { Login } from './Login';
 import { connect } from 'react-redux';
 import { Switch, Route, } from "react-router-dom";
 import { FetchLogin } from '../actions/LoginActions';
+import { Product } from "./Product";
 
 export class App extends React.Component{
 
@@ -20,7 +21,8 @@ export class App extends React.Component{
           </div>
         </div>
         <Switch>
-          <Route exact path="/" component={Login}/>
+          <Route exact path="/login" component={Login}/>
+          <Route exact path="/product" component={Product}/>
         </Switch>
       </div>
     )
