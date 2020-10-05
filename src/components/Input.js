@@ -7,12 +7,12 @@ export class Input extends React.Component {
                 <input 
                     type={this.props.type} 
                     placeholder={this.props.placeholder}
-                    email={this.props.email}
+                    name={this.props.name}
                     onChange={this.props.handleChange}
                 />
-                {this.props.email === "password" ?
+                {this.props.name === "password" ?
                     <button onClick={this.props.togglePassword} className="eye-button" type="button">
-                        <i className={"fas " + (this.props.type === "password" ? "fas eye-slash" : "fa-eye" )}></i> 
+                        <i className={"fa " + (this.props.type === "password" ? "fa-eye-slash" : "fa-eye" )}></i> 
                     </button> : null}
             </p>
         )

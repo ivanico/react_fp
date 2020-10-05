@@ -10,6 +10,11 @@ html, body {
         height: 100%;
     }
 
+    input:focus{
+        outline: 0px;
+        border-color: transparent;
+    }
+
     #login {
         display: flex;
         align-items: center;
@@ -39,6 +44,8 @@ html, body {
                 }
 
             #login form input {
+                border-radius: 5px;
+                border-color: transparent;
                 width: 100%;
                 box-sizing: border-box;
                 padding: 8px;
@@ -58,6 +65,7 @@ html, body {
             }
 
             .eye-button {
+                color: lightslategray;
                 background: transparent;
                 border: 0px;
                 padding: 0px;
