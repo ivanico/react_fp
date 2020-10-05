@@ -15,7 +15,7 @@ export class Login extends React.Component {
 
     InputChangeHandler = (event) => {
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.email]: event.target.value
         });
     }
 
