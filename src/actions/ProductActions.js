@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const FetchProductStart = (product) => {
+export const FetchProductStart = (products) => {
     return{
         type:'FETCH_PRODUCT',
-        payload: product
+        payload: products
     }
 }
 
@@ -14,10 +14,10 @@ export const FetchProductError = (err) => {
     }
 }
 
-export const FetchLogin = () => {
+export const FetchProducts = () => {
     return dispatch => {
-        axios.get("http://127.0.0.1:8082/")
-        .then(res => dispatch(FetchProductStart(res.data.results)))
+        axios.get("http://127.0.0.1:8080/api/v1/products")
+        .then(res => dispatch(FetchProductStart(res.data)))
         .catch(err =>dispatch(FetchProductError(err)))
     }
 }

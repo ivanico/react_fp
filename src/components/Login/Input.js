@@ -5,7 +5,7 @@ export class Input extends React.Component {
         return (
             <p>
                 <input 
-                    type={this.props.type} 
+                    type={this.props.type}
                     placeholder={this.props.placeholder}
                     name={this.props.name}
                     onChange={this.props.handleChange}

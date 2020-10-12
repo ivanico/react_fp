@@ -1,14 +1,19 @@
 import React from 'react';
-import { Login } from './Login';
 import { connect } from 'react-redux';
-import { Switch, Route, } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+
 import { FetchLogin } from '../actions/LoginActions';
+import { FetchProducts } from "../actions/ProductActions";
+
 import { Product } from "./Product";
+import { Login } from './Login/Login';
+
 
 export class App extends React.Component{
 
   componentDidMount(){
     this.props.FetchLogin();
+    this.props.FetchProducts();
   }
 
   render(){
@@ -20,10 +25,10 @@ export class App extends React.Component{
            </div>
           </div>
         </div>
-        <Switch>
-          <Route exact path="/login" component={Login}/>
-          <Route exact path="/product" component={Product}/>
-        </Switch>
+          <Switch>
+            <Route exact path="/login" component={Login}/>
+            <Route path="/product" component={Product}/>
+          </Switch>
       </div>
     )
   }
@@ -33,8 +38,11 @@ const MapDispatchToProps = (dispatch) =>{
   return{
     FetchLogin: () =>{
       dispatch(FetchLogin());
+    },
+    FetchProducts: () =>{
+      dispatch(FetchProducts());
     }
   };
 }
 
-App = connect(null,MapDispatchToProps)(App);
+App = connect(null, MapDispatchToProps)(App);

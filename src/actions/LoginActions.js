@@ -16,7 +16,7 @@ export const FetchLoginError = (err) => {
 
 export const FetchLogin = () => {
     return dispatch => {
-        axios.post("http://127.0.0.1:8081/login")
+        axios.post("http://127.0.0.1:8080/api/v1/auth/login")
         .then(res => dispatch(FetchLoginStart(res.data.results)))
         .catch(err =>dispatch(FetchLoginError(err)))
     }
