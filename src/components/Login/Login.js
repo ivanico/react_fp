@@ -1,7 +1,10 @@
 import React from "react";
 import { Input } from "./Input";
+import {LoginU} from "../../actions/LoginActions";
+import {connect} from "react-redux";
 
-export class Login extends React.Component {
+
+class Login extends React.Component {
 
     constructor(props) {
         super(props);
@@ -15,7 +18,7 @@ export class Login extends React.Component {
 
     InputChangeHandler = (event) => {
         this.setState({
-            [event.target.email]: event.target.value
+            [event.target.name]: event.target.value
         });
     }
 
@@ -25,11 +28,18 @@ export class Login extends React.Component {
         });
     }
 
+    LoginSubmit = () => {
+        this.props.LoginU(this.state.email, this.state.password);
+        console.log(this.props)
+    }
+
+    test = () => {
+        console.log(localStorage.getItem('user'));
+    }
 
     render() {
         return (
             <div id="login">
-                <form onSubmit={this.SubmitForm}>
                     <Input 
                         handleChange={this.InputChangeHandler}
                         name="email"
@@ -43,9 +53,23 @@ export class Login extends React.Component {
                         placeholder="Password"
                         togglePassword={this.TogglePassword}
                     />
-                    <button className="action-button">Sign In</button>
-                </form>
+                    <button onClick={this.LoginSubmit} className="action-button">Sign In</button>
+                    <button onClick={this.test}></button>
             </div>
         )
     }
 }
+
+const MapDispatchToProps = (dispatch) => {
+    return {
+      LoginU: (email, password) => {
+        dispatch(LoginU(email, password));
+      }
+    }
+}
+
+const MapStateToProps = () => {
+    return {}
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(Login);

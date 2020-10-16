@@ -1,23 +1,26 @@
 import axios from "axios";
 
-export const FetchLoginStart = (users) => {
+export const LoginStart = (user) => {
     return{
-        type:'FETCH_USERS',
-        payload: users
+        type:'LOGIN_USER',
+        payload: user
     }
 }
 
-export const FetchLoginError = (err) => {
+export const LoginError = (err) => {
     return {
-        type: "FETHC_USERS_ERROR",
+        type: "LOGIN_USER_ERROR",
         payload:err
     }
 }
 
-export const FetchLogin = () => {
+export const LoginU = (email, password) => {
     return dispatch => {
-        axios.post("http://127.0.0.1:8080/api/v1/auth/login")
-        .then(res => dispatch(FetchLoginStart(res.data.results)))
-        .catch(err =>dispatch(FetchLoginError(err)))
+        axios.post("http://127.0.0.1:8080/api/v1/auth/login", {email, password})
+        .then(res => {
+            localStorage.setItem('user', res.data.token);
+            dispatch(LoginStart(res.data.token));
+        })
+        .catch(err => dispatch(LoginError(err)))
     }
 }

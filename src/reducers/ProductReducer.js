@@ -5,17 +5,19 @@ const initialState = {
 
 const ProductReducer = (state = initialState, action) => {
     switch(action.type) {
-        case "FETCH_PRODUCT" :
+        case "FETCH_PRODUCTS" :
             return {
                 ...state,
                 products: action.payload
             }
-        case "FETCH_PRODUCT_ERROR" :
+        case "FETCH_PRODUCTS_ERROR" :
             return{      
                 ...state,
                 error: action.payload        
-                }
+                };
+                
         default: return state;
     }
-}
+};
+
 export default ProductReducer;

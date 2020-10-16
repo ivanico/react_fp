@@ -1,16 +1,16 @@
 const initialState = {
-    users: [],
+    user: [],
     error: ""
 }
 
 const LoginReducer = (state = initialState, action) => {
     switch(action.type) {
-        case "FETCH_USERS" :
+        case "LOGIN_USER" :
             return {
                 ...state,
-                users: action.payload
+                user: action.payload
             }
-        case "FETCH_USERS_ERROR" :
+        case "LOGIN_USER_ERROR" :
             return{      
                 ...state,
                 error: action.payload        
