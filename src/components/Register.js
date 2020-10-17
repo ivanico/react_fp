@@ -1,12 +1,15 @@
 import React from 'react';
 import { Input } from "./Login/Input";
+import { connect } from "react-redux";
+import { RegisterU } from "../actions/RegisterAction"
 
-export class Register extends React.Component{
+class Register extends React.Component{
     
     constructor(props) {
         super(props);
 
         this.state = {
+            user: {
             first_name: "",
             last_name: "",
             email: "",
@@ -14,6 +17,7 @@ export class Register extends React.Component{
             telephone: "",
             country: "",
             password: ""
+            }
         }
     }
 
@@ -27,6 +31,11 @@ export class Register extends React.Component{
         this.setState({
             passwordType: this.state.passwordType === "text" ? "password" : "text"
         });
+    }
+
+    RegisterUser = () => {
+        this.props.RegisterU(this.props.user);
+        console.log(this.props)
     }
 
     render() {
@@ -75,8 +84,22 @@ export class Register extends React.Component{
                     placeholder="Password"
                     togglePassword={this.TogglePassword}                  
                 />
-                <button>REGISTER</button>
+                <button onClick={this.RegisterUser}>REGISTER</button>
             </div>
         )
     }
 }
+
+const MapDispatchToProps = (dispatch) => {
+    return {
+      RegisterU: (user) => {
+        dispatch(RegisterU(user));
+      }
+    }
+}
+
+const MapStateToProps = () => {
+    return {}
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(Register);

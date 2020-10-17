@@ -1,12 +1,8 @@
 import React from 'react';
-// import { connect } from 'react-redux';
 import { Switch, Route } from "react-router-dom";
-
-// import { LoginU } from '../actions/LoginActions';
-// import { FetchProducts } from "../actions/ProductActions";
-
 import { Product } from "./Product";
 import Login  from './Login/Login';
+import Register from './Register';
 
 
 export class App extends React.Component{
@@ -25,6 +21,7 @@ export class App extends React.Component{
           <Switch>
             <Route exact path="/login" component={Login}/>
             <Route path="/product" component={Product}/>
+            <Route path="/register" component={Register}/>
           </Switch>
       </div>
     )

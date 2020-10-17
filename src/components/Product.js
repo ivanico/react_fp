@@ -1,10 +1,19 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { FetchProducts } from "../actions/ProductActions"
+import { FetchProducts, FetchProductError} from "../actions/ProductActions";
+import axios from "axios";
 
 
 
 export class Product extends React.Component {
+
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          product: []
+        }
+      }
 
 
     componentDidMount(){
@@ -12,7 +21,24 @@ export class Product extends React.Component {
     }
     
     test = () => {
-        console.log(this.props);
+        console.log(this.props.products);
+    }
+
+    DeleteProduct = () => {
+        return dispatch => {
+            const api = `http://127.0.0.1:8080/api/v1/products/` + this.state.product._id;
+            const token = localStorage.getItem('user');
+            const axiosToken = axios.create({
+                baseURL: api,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            axiosToken.delete()
+            .then(res => {this.setState({product: ''});
+            this.props.FetchProducts()})
+            .catch(err =>dispatch(FetchProductError(err)))
+        }
     }
 
     render() {
@@ -41,7 +67,7 @@ export class Product extends React.Component {
                             <td>{product.purchase_date}</td>
                             <td>{product.price}</td>  
                             <td><button>edit</button></td>
-                            <td><button>delete</button></td>      
+                            <td><button onClick={this.DeleteProduct()}>delete{product._id}</button></td>      
                         </tr>
                         )
                     })}
