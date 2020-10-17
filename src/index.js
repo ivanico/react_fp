@@ -14,7 +14,6 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Route path="/" component={ App } />
-            <Route path="/product" component={ App } />
             <Route path="/register" component={ App } />
         </BrowserRouter>
     </Provider>,

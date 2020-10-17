@@ -11,7 +11,7 @@ export class Product extends React.Component {
         super(props);
     
         this.state = {
-          product: []
+            ChosenProductID : ""
         }
       }
 
@@ -24,7 +24,7 @@ export class Product extends React.Component {
         console.log(this.props.products);
     }
 
-    DeleteProduct = () => {
+    DeleteProduct = (id) => {
         const api = 'http://127.0.0.1:8080/api/v1/products';
         const token = localStorage.getItem('user');
         const axiosToken = axios.create({
@@ -33,10 +33,8 @@ export class Product extends React.Component {
                 Authorization: `Bearer ${token}`
             }
         })
-        axiosToken.delete('http://127.0.0.1:8080/api/v1/products')
-            .then(res => this.setState({
-                product: ''
-            }))
+        axiosToken.delete(id)
+            .then(res => this.setState({ChosenProductID : id}))
             .catch(err => console.log(err))
     }
 
@@ -66,7 +64,7 @@ export class Product extends React.Component {
                             <td>{product.purchase_date}</td>
                             <td>{product.price}</td>  
                             <td><button>edit</button></td>
-                            <td><button>delete</button></td>      
+                            <td><button onClick={() => this.DeleteProduct(product._id)}>delete</button></td>      
                         </tr>
                         )
                     })}

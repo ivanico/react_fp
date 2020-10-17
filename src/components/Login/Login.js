@@ -53,8 +53,7 @@ class Login extends React.Component {
                         placeholder="Password"
                         togglePassword={this.TogglePassword}
                     />
-                    <button onClick={this.LoginSubmit} className="action-button">Sign In</button>
-                    <button onClick={this.test}></button>
+                    <button onClick={this.LoginSubmit} className="action-button">Sign In</button>         
             </div>
         )
     }
