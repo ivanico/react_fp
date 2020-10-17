@@ -34,8 +34,7 @@ class Register extends React.Component{
     }
 
     RegisterUser = () => {
-        this.props.RegisterU(this.props.user);
-        console.log(this.props)
+        this.props.RegisterU(this.state.user);
     }
 
     render() {

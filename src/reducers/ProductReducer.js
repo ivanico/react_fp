@@ -1,6 +1,5 @@
 const initialState = {
     products: [],
-    product: [],
     error: ""
 }
 
@@ -10,12 +9,7 @@ const ProductReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: action.payload
-            };
-        case "FETCH_PRODUCT" :
-            return{
-                ...state,
-                product: action.payload
-            };    
+            };   
         case "FETCH_PRODUCTS_ERROR" :
             return{      
                 ...state,

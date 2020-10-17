@@ -7,13 +7,6 @@ export const FetchProductStart = (products) => {
     }
 }
 
-export const FetchProduct = (product) => {
-    return{
-        type:'FETCH_PRODUCT',
-        payload: product
-    }
-}
-
 export const FetchProductError = (err) => {
     return {
         type: "FETHC_PRODUCTS_ERROR",

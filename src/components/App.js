@@ -5,6 +5,7 @@ import Login  from './Login/Login';
 import Register from './Register';
 
 
+
 export class App extends React.Component{
 
 
@@ -19,7 +20,7 @@ export class App extends React.Component{
           </div>
         </div>
           <Switch>
-            <Route exact path="/login" component={Login}/>
+            <Route exact path="/" component={Login}/>
             <Route path="/product" component={Product}/>
             <Route path="/register" component={Register}/>
           </Switch>
