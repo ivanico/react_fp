@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { FetchProducts } from "../actions/ProductActions";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 
 
@@ -34,7 +35,7 @@ export class Product extends React.Component {
             }
         })
         axiosToken.delete(id)
-            .then(res => this.setState({ChosenProductID : id}))
+            .then(res => this.setState({ChosenProductID : ""}))
             .catch(err => console.log(err))
     }
 
@@ -70,7 +71,7 @@ export class Product extends React.Component {
                     })}
                     </tbody>
                 </table> : <h2>Loading Products</h2> }
-                <button onClick={this.test}>New product</button>
+                <Link to="/createproduct"><button>New product</button></Link>
             </div>
         )
     }

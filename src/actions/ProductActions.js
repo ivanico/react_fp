@@ -7,6 +7,13 @@ export const FetchProductStart = (products) => {
     }
 }
 
+export const CreateProductStart = (product) => {
+    return{
+        type:'CREATE_PRODUCT',
+        payload: product
+    }
+}
+
 export const FetchProductError = (err) => {
     return {
         type: "FETHC_PRODUCTS_ERROR",
@@ -30,3 +37,17 @@ export const FetchProducts = () => {
     }
 }
 
+export const CreateProduct = (product) => {
+    return dispatch => {
+        const api = 'http://127.0.0.1:8080/api/v1/products';
+        const token = localStorage.getItem('user');
+        const axiosToken = axios.create({
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        axiosToken.post(api, product)
+        .then(res => dispatch(CreateProductStart(res.data)))
+        .catch(err =>dispatch(FetchProductError(err)))
+    }
+}

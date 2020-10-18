@@ -3,13 +3,12 @@ import { Switch, Route } from "react-router-dom";
 import { Product } from "./Product";
 import Login  from './Login/Login';
 import Register from './Register';
+import { Expenses } from './Expenses';
+import { NewProduct } from './NewProduct';
 
 
 
 export class App extends React.Component{
-
-
-
   render(){
     return(
       <div id="app">
@@ -22,7 +21,9 @@ export class App extends React.Component{
           <Switch>
             <Route exact path="/" component={Login}/>
             <Route path="/product" component={Product}/>
+            <Route path="/expenses" component={Expenses}/>
             <Route path="/register" component={Register}/>
+            <Route path="/createproduct" component={NewProduct}/>
           </Switch>
       </div>
     )

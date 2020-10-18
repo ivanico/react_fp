@@ -10,10 +10,10 @@ export class Expenses extends React.Component{
             totalPrice: undefined
         }
     }
-    totalExpense = () => {
+    totalPrice = () => {
         var totalPrice = 0
-        for(let i = 0; i < this.state.products.length; i++){
-            totalPrice += this.state.products[i].price
+        for(let i = 0; i < this.props.products.length; i++){
+            totalPrice += this.props.products[i].price
         }
         this.setState({totalPrice : totalPrice})
     }
@@ -27,6 +27,7 @@ export class Expenses extends React.Component{
                 <h2>Expenses</h2>
                 <button>MONTHLY</button>
                 <button>YEARLY</button>
+                <button onClick={this.totalPrice}>TOTAL</button>
     
                 {this.props.products.length > 0 ?
                 <table>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Input } from "./Login/Input";
 import { connect } from "react-redux";
-import { RegisterU } from "../actions/RegisterAction"
+import { RegisterU } from "../actions/RegisterAction";
+import { Input } from "../components/Login/Input";
 
 class Register extends React.Component{
     
@@ -9,15 +9,13 @@ class Register extends React.Component{
         super(props);
 
         this.state = {
-            user: {
             first_name: "",
             last_name: "",
             email: "",
             date_of_birth: "",
             telephone: "",
             country: "",
-            password: ""
-            }
+            password: ""    
         }
     }
 
@@ -34,7 +32,7 @@ class Register extends React.Component{
     }
 
     RegisterUser = () => {
-        this.props.RegisterU(this.state.user);
+        this.props.RegisterU(this.state);
     }
 
     render() {
