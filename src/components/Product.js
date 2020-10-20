@@ -35,7 +35,7 @@ export class Product extends React.Component {
             }
         })
         axiosToken.delete(id)
-            .then(res => this.setState({ChosenProductID : ""}))
+            .then(res => console.log(res))
             .catch(err => console.log(err))
     }
 
@@ -64,7 +64,7 @@ export class Product extends React.Component {
                             <td>{product.description}</td>
                             <td>{product.purchase_date}</td>
                             <td>{product.price}</td>  
-                            <td><button>edit</button></td>
+                            <td><Link to={"/editproduct/" + product._id}><button>edit</button></Link></td>
                             <td><button onClick={() => this.DeleteProduct(product._id)}>delete</button></td>      
                         </tr>
                         )

@@ -1,10 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import { CreateProduct } from "../actions/ProductActions";
 import { Input } from "../components/Login/Input";
+import axios from "axios";
 
-
-export class NewProduct extends React.Component{
+export class EditProduct extends React.Component{
     
     constructor(props) {
         super(props);
@@ -25,13 +23,25 @@ export class NewProduct extends React.Component{
     }
 
     SubmitProduct = () => {
-        this.props.CreateProduct(this.state);
+        const token = localStorage.getItem('user');
+        const axiosToken = axios.create({
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        axiosToken.put('http://127.0.0.1:8080/api/v1/products/' + this.props.match.params.id, this.state)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     render() {
         return(
             <div>
-                <h2>New Product</h2>
+                <h2>Edit Product</h2>
                 <Input
                     handleChange={this.InputChangeHandler}
                     name="name"
@@ -62,23 +72,8 @@ export class NewProduct extends React.Component{
                     type="text"
                     placeholder="Price"                  
                 />
-                <button onClick={this.SubmitProduct}>CREATE PRODUCT</button>
+                <button onClick={this.SubmitProduct}>EDIT PRODUCT</button>
             </div>
         )
     }
 }
-
-
-const MapDispatchToProps = (dispatch) => {
-    return {
-        CreateProduct: (product) => {
-            dispatch(CreateProduct(product));
-        }
-    }
-}
-
-const MapStateToProps = () => {
-    return {}
-}
-
-NewProduct = connect(MapStateToProps,MapDispatchToProps)(NewProduct);
