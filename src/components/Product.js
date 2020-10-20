@@ -13,6 +13,7 @@ export class Product extends React.Component {
     
         this.state = {
             ChosenProductID : ""
+            
         }
       }
 
@@ -21,6 +22,10 @@ export class Product extends React.Component {
         this.props.FetchProducts();
     }
     
+    refreshPage = () => {
+        window.location.reload(false);
+      };
+
     test = () => {
         console.log(this.props.products);
     }
@@ -65,7 +70,7 @@ export class Product extends React.Component {
                             <td>{product.purchase_date}</td>
                             <td>{product.price}</td>  
                             <td><Link to={"/editproduct/" + product._id}><button>edit</button></Link></td>
-                            <td><button onClick={() => this.DeleteProduct(product._id)}>delete</button></td>      
+                            <td><button onClick={() => {this.DeleteProduct(product._id);this.refreshPage()}}>delete</button></td>      
                         </tr>
                         )
                     })}

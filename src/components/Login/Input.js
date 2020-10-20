@@ -3,7 +3,7 @@ import React from "react";
 export class Input extends React.Component {
     render() {
         return (
-            <p>
+            <div>
                 <input 
                     type={this.props.type}
                     placeholder={this.props.placeholder}
@@ -14,7 +14,7 @@ export class Input extends React.Component {
                     <button onClick={this.props.togglePassword} className="eye-button" type="button">
                         <i className={"fa " + (this.props.type === "password" ? "fa-eye-slash" : "fa-eye" )}></i> 
                     </button> : null}
-            </p>
+            </div>
         )
     }
 }

@@ -30,8 +30,10 @@ export class NewProduct extends React.Component{
 
     render() {
         return(
-            <div>
+            <div id="new-product">
                 <h2>New Product</h2>
+                <div className="column-wrapper">
+                <div className="col1">
                 <Input
                     handleChange={this.InputChangeHandler}
                     name="name"
@@ -63,6 +65,14 @@ export class NewProduct extends React.Component{
                     placeholder="Price"                  
                 />
                 <button onClick={this.SubmitProduct}>CREATE PRODUCT</button>
+            </div>
+            <div className="col2">
+                <div>
+                    <i className="fa fa-plus-circle"></i>
+                    <span>You are creating a new product</span>
+                </div>
+            </div>
+            </div>
             </div>
         )
     }

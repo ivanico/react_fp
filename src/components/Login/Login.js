@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "./Input";
 import {LoginU} from "../../actions/LoginActions";
 import {connect} from "react-redux";
+import { Link } from "react-router-dom";
 
 
 class Login extends React.Component {
@@ -40,12 +41,15 @@ class Login extends React.Component {
     render() {
         return (
             <div id="login">
+                <div id="login-form">
+                    <label>E-mail</label>
                     <Input 
                         handleChange={this.InputChangeHandler}
                         name="email"
                         type="text"
                         placeholder="E-mail"
                     />
+                    <label>Password</label>
                     <Input 
                         handleChange={this.InputChangeHandler}
                         name="password"
@@ -54,6 +58,10 @@ class Login extends React.Component {
                         togglePassword={this.TogglePassword}
                     />
                     <button onClick={this.LoginSubmit} className="action-button">Sign In</button>         
+                </div>
+                <div id="register-now">
+                <span>Or if you don't have an account, <Link to="/register">Register</Link></span>
+                </div>
             </div>
         )
     }
