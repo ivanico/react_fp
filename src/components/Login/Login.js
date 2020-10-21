@@ -13,7 +13,7 @@ class Login extends React.Component {
         this.state = {
             email: "",
             password: "",
-            passwordType: "password"
+            passwordType: "password",
         }
     }
 
@@ -31,12 +31,10 @@ class Login extends React.Component {
 
     LoginSubmit = () => {
         this.props.LoginU(this.state.email, this.state.password);
+        setTimeout(() => {this.props.history.push('/product')}, 500);       
         console.log(this.props)
     }
 
-    test = () => {
-        console.log(localStorage.getItem('user'));
-    }
 
     render() {
         return (

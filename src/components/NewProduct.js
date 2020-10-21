@@ -26,6 +26,7 @@ export class NewProduct extends React.Component{
 
     SubmitProduct = () => {
         this.props.CreateProduct(this.state);
+        this.props.history.push('/product');
     }
 
     render() {
@@ -55,7 +56,7 @@ export class NewProduct extends React.Component{
                 <Input
                     handleChange={this.InputChangeHandler}
                     name="purchase_date"
-                    type="text"
+                    type="date"
                     placeholder="Purches date"                  
                 />
                 <Input

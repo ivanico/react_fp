@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { FetchProducts } from "../actions/ProductActions";
+import { Header } from "./Header";
 
 export class Expenses extends React.Component{
     constructor(props){
@@ -9,7 +10,8 @@ export class Expenses extends React.Component{
         this.state = {
             month:"",
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            totalPrice: undefined
+            totalPrice: undefined,
+            year:""
         }
     }
 
@@ -32,6 +34,7 @@ export class Expenses extends React.Component{
     render() {
         return(
             <div>
+                <Header />
                 <h2>Expenses</h2>
                 <button>MONTHLY</button>
                 <select name="month" value={this.state.month} onChange={this.handleOnChange}>

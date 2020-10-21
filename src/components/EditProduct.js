@@ -30,9 +30,7 @@ export class EditProduct extends React.Component{
             }
         })
         axiosToken.put('http://127.0.0.1:8080/api/v1/products/' + this.props.match.params.id, this.state)
-        .then(res => {
-            console.log(res)
-        })
+        .then(this.props.history.push('/product'))
         .catch(err => {
             console.log(err)
         })
@@ -65,7 +63,7 @@ export class EditProduct extends React.Component{
                 <Input
                     handleChange={this.InputChangeHandler}
                     name="purchase_date"
-                    type="text"
+                    type="date"
                     placeholder="Purches date"                  
                 />
                 <Input
