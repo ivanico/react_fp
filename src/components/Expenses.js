@@ -10,7 +10,6 @@ export class Expenses extends React.Component{
         this.state = {
             month:"",
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            totalPrice: undefined,
             year:""
         }
     }
@@ -23,18 +22,17 @@ export class Expenses extends React.Component{
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    totalPrice = () => {
-        var totalPrice = 0
-        for(let i = 0; i < this.props.products.length; i++){
-            totalPrice += this.props.products[i].price
-        }
-        this.setState({totalPrice : totalPrice})
-    }
+    TotalPrice = () => {
+        var totalPrice = 0;
+        this.props.products.forEach(p => totalPrice += p.price);
+        return totalPrice;
+      }
     
     render() {
         return(
             <div>
                 <Header />
+                <span>{localStorage.getItem('username')}{localStorage.getItem('lastname')}</span>
                 <h2>Expenses</h2>
                 <button>MONTHLY</button>
                 <select name="month" value={this.state.month} onChange={this.handleOnChange}>
@@ -63,9 +61,7 @@ export class Expenses extends React.Component{
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
-              </select>
-                <button onClick={this.totalPrice}>TOTAL</button>
-    
+              </select>    
                 {this.props.products.length > 0 ?
                 <table>
                     <thead>
@@ -91,7 +87,7 @@ export class Expenses extends React.Component{
                     })}
                     </tbody>
                 </table> : <h2>Loading Products</h2> }
-                <h1>Total spent : {this.state.totalPrice} den.</h1>
+                <h1>Total spent : {this.TotalPrice()} den.</h1>
             </div>
         )
     }

@@ -31,8 +31,7 @@ class Login extends React.Component {
 
     LoginSubmit = () => {
         this.props.LoginU(this.state.email, this.state.password);
-        setTimeout(() => {this.props.history.push('/product')}, 500);       
-        console.log(this.props)
+        setTimeout(() => {this.props.history.push('/product')}, 500);
     }
 
 

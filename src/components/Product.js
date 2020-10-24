@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from "react-redux";
 import { FetchProducts } from "../actions/ProductActions";
 import { Link } from 'react-router-dom';
-import DeleteModal from './DeleteModal';
 import axios from "axios";
 import { Header } from './Header';
 
@@ -16,22 +15,22 @@ export class Product extends React.Component {
         this.state = {
             ChosenProductID : "",
             select: "",
-            popupDelete: true
+            direction: {
+                price: 'asc',
+                purchase_date: 'asc'
+            }
         }
       }
+
 
 
     componentDidMount(){
         this.props.FetchProducts();
     }
-    
-    popupDeleteModal = () => {
-        this.setState({
-            popupDelete: !this.state.popupDelete
-        })
-    }
 
     DeleteProduct = (id) => {
+        if(window.confirm('You are about to delete this product. Are you sure you wish to continue?'))
+        {
         const api = 'http://127.0.0.1:8080/api/v1/products';
         const token = localStorage.getItem('user');
         const axiosToken = axios.create({
@@ -43,24 +42,49 @@ export class Product extends React.Component {
         axiosToken.delete(id)
             .then(res => console.log(res))
             .catch(err => console.log(err))
+        }
     }
 
     handleOnChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
 
+    SortByPrice(p) {
+        this.setState({
+            products: this.props.products.sort( (a, b) => ( 
+                this.state.direction[p] === 'asc'
+                ? (a[p]) - (b[p])
+                : (b[p]) - (a[p])
+                )),
+            direction: {
+                [p]: this.state.direction[p] === 'asc'
+                ? 'desc'
+                : 'asc'
+            }   
+        })
+    }
+
+    SortByDate(d) {
+        this.setState({
+            product: this.props.products.sort( (a, b) => (
+                this.state.direction[d] === 'asc'
+                ? Date.parse(a[d]) - Date.parse(b[d])
+                : Date.parse(b[d]) - Date.parse(a[d])
+            )),
+            direction: {
+                [d]: this.state.direction[d] === 'asc'
+                ? 'desc'
+                : 'asc'
+            }
+        })
+    }
+
     render() {
         return(
             <div>
                 <Header />
-                <div><span>{localStorage.getItem('username', 'lastname')}</span></div>
+                <div><span>{localStorage.getItem('username')}{localStorage.getItem('lastname')}</span></div>
                 <h2>Products</h2>
-                <select name="select" onChange={this.handleOnChange}>
-                    <option value="latest-purchases">Latest Purchases</option>
-                    <option value="highest-price">Highest Price</option>
-                    <option value="lowest-price">Lowest Price</option>
-                </select>
-
                 {this.props.products.length > 0 ?
                 <table>
                     <thead>
@@ -68,8 +92,8 @@ export class Product extends React.Component {
                             <th>Product Name</th>
                             <th>Product Type</th>
                             <th>Product Description</th>
-                            <th>Purchase Date</th>
-                            <th>Product Price</th>
+                            <th><button onClick={() => this.SortByDate("purchase_date")}>Purchase Date</button></th>
+                            <th><button onClick={() => this.SortByPrice("price")}>Price</button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,7 +103,7 @@ export class Product extends React.Component {
                             <td>{product.name}</td>
                             <td>{product.type}</td>
                             <td>{product.description}</td>
-                            <td>{product.purchase_date}</td>
+                            <td>{new Date(product.purchase_date).toISOString().substring(0, 10)}</td>
                             <td>{product.price}</td>  
                             <td><Link to={"/editproduct/" + product._id}><button><i className="fa fa-edit"></i></button></Link></td>
                             <td><button onClick={() => this.DeleteProduct(product._id)}><i className="fa fa-trash"></i></button></td>      
@@ -89,11 +113,6 @@ export class Product extends React.Component {
                     </tbody>
                 </table> : <h2>Loading Products</h2> }
                 <Link to="/createproduct"><button>New product</button></Link>
-                <button onClick={() => this.popupDeleteModal}></button>
-                <DeleteModal open={this.state.popupDelete}>
-                    <h2>Delete Product</h2>
-                    <span>You are about to delete this product. Are you sure tou wish to continue?</span>
-                </DeleteModal>
             </div>
         )
     }

@@ -23,6 +23,7 @@ export const LoginU = (email, password) => {
             localStorage.setItem('lastname', res.data.u.last_name);
             dispatch(LoginStart(res.data.token));
         })
-        .catch(err => dispatch(LoginError(err)))
+        .catch(err => { dispatch(LoginError(err))
+        alert('Your e-mail or password is incorrect')})
     }
 }
