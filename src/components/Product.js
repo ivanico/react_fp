@@ -85,15 +85,15 @@ export class Product extends React.Component {
         })
     }
 
-    getId = (id) => {
-        this.setState({id : id})
-     }
-
     render() {
         return(
-            <div>
+            <div id='table'>
+                <div id="head">
                 <Header />
-                <div><span>{localStorage.getItem('username')}{localStorage.getItem('lastname')}</span></div>
+                <div><span>{localStorage.getItem('username')}  {localStorage.getItem('lastname')}</span>
+                </div>
+            </div>
+            <div id='table-wrap'>
                 <h2>Products</h2>
                 {this.props.products.length > 0 ?
                 <table>
@@ -104,6 +104,8 @@ export class Product extends React.Component {
                             <th>Product Description</th>
                             <th><button onClick={() => this.SortByDate("purchase_date")}>Purchase Date</button></th>
                             <th><button onClick={() => this.SortByPrice("price")}>Price</button></th>
+                            <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -115,15 +117,19 @@ export class Product extends React.Component {
                             <td>{product.description}</td>
                             <td>{new Date(product.purchase_date).toISOString().substring(0, 10)}</td>
                             <td>{product.price}</td>  
-                            <td><Link to={"/editproduct/" + product._id}><button><i className="fa fa-edit"></i></button></Link></td>
-                            <td><button onClick={this.togglePop}> <i className="fa fa-trash"></i></button></td>      
+                            <td>
+                            <Link to={"/editproduct/" + product._id}><button><i className="fa fa-edit"></i></button></Link>
+                            <button onClick={this.togglePop}> <i className="fa fa-trash"></i></button>
+                            </td>
+                                 
                         </tr>
                         )
                     })}
                     </tbody>
                 </table> : <h2>Loading Products</h2> }
                 {this.state.seen ? <PopUp delete={()=>this.DeleteProduct} toggle={this.togglePop} /> : null}
-                <Link to="/createproduct"><button>New product</button></Link>
+                <div id='newp-btn'><Link to="/createproduct"><button>New product</button></Link></div>
+            </div>
             </div>
         )
     }

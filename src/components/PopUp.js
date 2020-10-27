@@ -10,9 +10,10 @@ handleClick = () => {
 
 render() {
   return (
-   <div>
+   <div id="popup">
      <div>
      <span className="close" onClick={this.handleClick}>&times;    </span>
+     <h2>Delete Product</h2>
      <p>You are about to delete this product. Are you sure you wish to continue?</p>
      <button onClick={this.props.delete}>Delete</button>
     </div>

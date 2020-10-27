@@ -31,10 +31,15 @@ export class Expenses extends React.Component{
 
     render() {
         return(
-            <div>
+            <div id='table'>
+                <div id="head">
                 <Header />
-                <span>{localStorage.getItem('username')}{localStorage.getItem('lastname')}</span>
+                <div><span>{localStorage.getItem('username')} {localStorage.getItem('lastname')}</span></div>
+                </div>
+                <div id='table-wrap'>
                 <h2>Expenses</h2>
+                <div id="dan">
+                    <span>Select Month and Year</span>
                 <select name="month" value={this.state.month} onChange={this.handleOnChange}>
                 <option value="0">January</option>
                 <option value="1">February</option>
@@ -60,7 +65,8 @@ export class Expenses extends React.Component{
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
-                </select>    
+                </select>
+                </div>    
                 {this.props.products.length > 0 ?
                 <table>
                     <thead>
@@ -90,7 +96,9 @@ export class Expenses extends React.Component{
                     })}
                     </tbody>
                 </table> : <h2>Loading Products</h2> }
-                <h1>Total spent : {this.TotalPrice()} den.</h1>
+               
+            </div>
+            <h1>Total spent : {this.TotalPrice()} den.</h1>
             </div>
         )
     }
