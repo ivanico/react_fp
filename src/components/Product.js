@@ -4,6 +4,7 @@ import { FetchProducts } from "../actions/ProductActions";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { Header } from './Header';
+import PopUp from "./PopUp";
 
 
 
@@ -13,12 +14,12 @@ export class Product extends React.Component {
         super(props);
     
         this.state = {
+            seen: false,
             ChosenProductID : "",
-            select: "",
             direction: {
                 price: 'asc',
                 purchase_date: 'asc'
-            }
+            }  
         }
       }
 
@@ -29,7 +30,6 @@ export class Product extends React.Component {
     }
 
     DeleteProduct = (id) => {
-        if(window.confirm('You are about to delete this product. Are you sure you wish to continue?'))
         {
         const api = 'http://127.0.0.1:8080/api/v1/products';
         const token = localStorage.getItem('user');
@@ -44,6 +44,12 @@ export class Product extends React.Component {
             .catch(err => console.log(err))
         }
     }
+
+    togglePop = () => {
+        this.setState({
+         seen: !this.state.seen
+        });
+       };
 
     handleOnChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
@@ -79,6 +85,10 @@ export class Product extends React.Component {
         })
     }
 
+    getId = (id) => {
+        this.setState({id : id})
+     }
+
     render() {
         return(
             <div>
@@ -106,12 +116,13 @@ export class Product extends React.Component {
                             <td>{new Date(product.purchase_date).toISOString().substring(0, 10)}</td>
                             <td>{product.price}</td>  
                             <td><Link to={"/editproduct/" + product._id}><button><i className="fa fa-edit"></i></button></Link></td>
-                            <td><button onClick={() => this.DeleteProduct(product._id)}><i className="fa fa-trash"></i></button></td>      
+                            <td><button onClick={this.togglePop}> <i className="fa fa-trash"></i></button></td>      
                         </tr>
                         )
                     })}
                     </tbody>
                 </table> : <h2>Loading Products</h2> }
+                {this.state.seen ? <PopUp delete={()=>this.DeleteProduct} toggle={this.togglePop} /> : null}
                 <Link to="/createproduct"><button>New product</button></Link>
             </div>
         )
