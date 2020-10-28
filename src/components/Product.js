@@ -23,14 +23,11 @@ export class Product extends React.Component {
         }
       }
 
-
-
     componentDidMount(){
         this.props.FetchProducts();
     }
 
     DeleteProduct = (id) => {
-        {
         const api = 'http://127.0.0.1:8080/api/v1/products';
         const token = localStorage.getItem('user');
         const axiosToken = axios.create({
@@ -40,9 +37,10 @@ export class Product extends React.Component {
             }
         })
         axiosToken.delete(id)
-            .then(res => console.log(res))
+            .then(res => {this.setState({seen: false})
+            this.props.FetchProducts();
+        })
             .catch(err => console.log(err))
-        }
     }
 
     togglePop = () => {
@@ -51,6 +49,12 @@ export class Product extends React.Component {
         });
        };
 
+    DelProduct = (id) => {
+        this.setState({
+            ChosenProductID: id
+        })
+    }
+          
     handleOnChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -119,7 +123,7 @@ export class Product extends React.Component {
                             <td>{product.price}</td>  
                             <td>
                             <Link to={"/editproduct/" + product._id}><button><i className="fa fa-edit"></i></button></Link>
-                            <button onClick={this.togglePop}> <i className="fa fa-trash"></i></button>
+                            <button onClick={()=>{this.togglePop();this.DelProduct(product._id)}}> <i className="fa fa-trash"></i></button>
                             </td>
                                  
                         </tr>
@@ -127,7 +131,10 @@ export class Product extends React.Component {
                     })}
                     </tbody>
                 </table> : <h2>Loading Products</h2> }
-                {this.state.seen ? <PopUp delete={()=>this.DeleteProduct} toggle={this.togglePop} /> : null}
+                {this.state.seen ? <PopUp 
+                delete={()=>this.DeleteProduct(this.state.ChosenProductID)} 
+                toggle={this.togglePop} 
+                /> : null}
                 <div id='newp-btn'><Link to="/createproduct"><button>New product</button></Link></div>
             </div>
             </div>
@@ -150,7 +157,6 @@ const MapDispatchToProps = (dispatch) => {
         }
     }
 }
-
 
 
 Product = connect(MapStateToProps,MapDispatchToProps)(Product);

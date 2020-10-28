@@ -1,19 +1,17 @@
 import React from "react";
 import { Input } from "./Input";
-import {LoginU} from "../../actions/LoginActions";
-import {connect} from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 
-class Login extends React.Component {
+export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             email: "",
-            password: "",
-            passwordType: "password",
+            password: ""
         }
     }
 
@@ -25,13 +23,21 @@ class Login extends React.Component {
 
     TogglePassword = () => {
         this.setState({
-            passwordType: this.state.passwordType === "text" ? "password" : "text"
+            passwordType: this.state.passwordType === "password" ? "text" : "password" 
         });
     }
 
     LoginSubmit = () => {
-        this.props.LoginU(this.state.email, this.state.password);
-        setTimeout(() => {this.props.history.push('/product')}, 500);
+        axios.post("http://127.0.0.1:8080/api/v1/auth/login",this.state)
+        .then(res => {
+            localStorage.setItem('user', res.data.token);
+            localStorage.setItem('username', res.data.u.first_name);
+            localStorage.setItem('lastname', res.data.u.last_name);
+        })
+        .then(this.props.history.push('/product'))
+        .catch(err => { alert('Your e-mail or password is incorrect')
+            this.props.history.push('/')
+        })
     }
 
 
@@ -63,17 +69,3 @@ class Login extends React.Component {
         )
     }
 }
-
-const MapDispatchToProps = (dispatch) => {
-    return {
-      LoginU: (email, password) => {
-        dispatch(LoginU(email, password));
-      }
-    }
-}
-
-const MapStateToProps = () => {
-    return {}
-}
-
-export default connect(MapStateToProps, MapDispatchToProps)(Login);
